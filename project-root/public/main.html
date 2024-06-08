@@ -66,19 +66,21 @@
     }
 
     .sidebar {
-  color: black;
-  width: 600px;
-  background-color: #d1d1d1;
-  padding: 40px;
-  z-index: 900; /* 기존보다 작은 값으로 변경 */
-  margin-top: calc(41px);
-  
-}
+      color: black;
+      width: 600px;
+      background-color: #d1d1d1;
+      padding: 40px;
+      z-index: 900;
+      /* 기존보다 작은 값으로 변경 */
+      margin-top: calc(41px);
 
-.sidebar div {
-  margin-bottom: 30px;
-}
-.main-menu span {
+    }
+
+    .sidebar div {
+      margin-bottom: 30px;
+    }
+
+    .main-menu div {
       margin-bottom: 30px;
     }
 
@@ -105,11 +107,18 @@
 
     <!-- 메인 메뉴 바 -->
     <div class="main-menu">
-      <span>메뉴1</span>
-      <span>메뉴2</span>
-      <span>메뉴3</span>
-      <span>메뉴4</span>
-      <span>설정</span>
+      <div class="menu1" onclick="goToMenu1()">
+        <span>메뉴1</span>
+      </div>
+      <div class="menu2" onclick="goToMenu2()">
+        <span>메뉴2</span>
+      </div>
+      <div class="menu3" onclick="goToMenu3()">
+        <span>메뉴3</span>
+      </div>
+      <div class="setting" onclick="goToSetting()">
+        <span>설정</span>
+      </div>
     </div>
 
     <!-- 맵 -->
@@ -117,20 +126,20 @@
 
     <!-- 사이드바 -->
     <div class="sidebar" id="sidebar">
-      <div>●지점이름	-  웅곡</div>
-      <div>●관리번호	-  1001</div>
-      <div>●홍수/만수/사수위	-  17/13/6.52m</div>
-      <div>●소재지	-  경상남도 거창군 거창읍 장팔리 1023</div>
-      <div>●관할지사	-  거창군 건설과</div>
-      <div>●통신상태	-  2023-12-09 17:19:00</div>
-      <div>●모니터링 주기	-  5분</div>
-      <div>●계측 수위 (EL.m)	-  12.99m</div>
-      <div>●계측값(Kgf/㎠)	-  0.66</div>
-      <div>●저수율	-  99.8(%)</div>
-      <div>●온도	-  14.4℃</div>
-      <div>●시스템 전압	-  11.78V</div>
-      <div>●수문개방(목표값)	-  부분개폐</div>
-      <div>●저수량(㎥)	-  12979938.3</div>
+      <div>●지점이름 - 웅곡</div>
+      <div>●관리번호 - 1001</div>
+      <div>●홍수/만수/사수위 - 17/13/6.52m</div>
+      <div>●소재지 - 경상남도 거창군 거창읍 장팔리 1023</div>
+      <div>●관할지사 - 거창군 건설과</div>
+      <div>●통신상태 - 2023-12-09 17:19:00</div>
+      <div>●모니터링 주기 - 5분</div>
+      <div>●계측 수위 (EL.m) - 12.99m</div>
+      <div>●계측값(Kgf/㎠) - 0.66</div>
+      <div>●저수율 - 99.8(%)</div>
+      <div>●온도 - 14.4℃</div>
+      <div>●시스템 전압 - 11.78V</div>
+      <div>●수문개방(목표값) - 부분개폐</div>
+      <div>●저수량(㎥) - 12979938.3</div>
     </div>
   </div>
 
@@ -161,6 +170,20 @@
     function goToMainPage() {
       window.location.href = "main.html";
     }
+    function goToMenu1() {
+      window.location.href = "menu1.html";
+    }
+    function goToMenu2() {
+      window.location.href = "menu2.html";
+    }
+    function goToMenu3() {
+      window.location.href = "menu3.html";
+    }
+    function goToSetting() {
+      window.location.href = "setting.html";
+    }
+
+
 
     // 특정 시설을 클릭했을 때 해당 시설 정보를 지도에 표시하는 함수
     function showFacility(name) {
