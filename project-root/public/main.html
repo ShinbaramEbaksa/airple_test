@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실시간 저수지 모니터링 시스템</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      /* 페이지 전체 스크롤 방지 */
+    }
+
+    .container {
+      display: flex;
+      height: 100%;
+      /* 브라우저 창 전체 높이를 채우도록 수정 */
+    }
+
+    .navbar {
+      background-color: #333;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      /* 너비를 고정값으로 설정 */
+      z-index: 1000;
+      position: fixed;
+      /* 고정 위치 */
+      top: 0px;
+      /* 상단 맨 위로 고정 */
+      left: 0;
+      /* 왼쪽으로 정렬 */
+    }
+
+    .main-menu {
+      background-color: #444;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      width: 100px;
+      /* 너비를 고정값으로 설정 */
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: calc(41px);
+    }
+
+    .main-menu span {
+      margin-bottom: 30px;
+    }
+
+    #map {
+      flex: 1;
+      /* 맵이 남은 공간을 모두 차지하도록 설정 */
+      margin-top: calc(41px);
+    }
+
+    .sidebar {
+  color: black;
+  width: 200px;
+  background-color: #d1d1d1;
+  padding: 40px;
+  z-index: 900; /* 기존보다 작은 값으로 변경 */
+  margin-top: calc(41px);
+}
+
+    .menu {
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .menu span {
+      display: block;
+      padding: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- 상단바 -->
+    <div class="navbar" onclick="goToMainPage()">
+      <span id="navbar-title">나의 시설 지도</span>
+    </div>
+
+    <!-- 메인 메뉴 바 -->
+    <div class="main-menu">
+      <span>메뉴1</span>
+      <span>메뉴2</span>
+      <span>메뉴3</span>
+      <span>메뉴4</span>
+      <span>설정</span>
+    </div>
+
+    <!-- 맵 -->
+    <div id="map"></div>
+
+    <!-- 사이드바 -->
+    <div class="sidebar" id="sidebar">
+      <!-- 내용 비워두기 -->
+    </div>
+  </div>
+
+  <!-- Leaflet 및 JavaScript 코드 -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // 시설 데이터
+    var facilities = [
+      { name: "에어플", lat: 37.1989403, lng: 127.0889836 },
+      { name: "영호", lat: 37.3678890, lng: 126.7265266 },
+      { name: "건희", lat: 37.2624049, lng: 127.0795000 },
+      { name: "단양 열선 후보지", lat: 36.9838538, lng: 128.3655721 },
+    ];
+
+    // Leaflet 지도 생성
+    var map = L.map('map').setView([37.5, 127], 10);
+
+    // VWorld 지도 타일 레이어 추가 (임시로 사용)
+    L.tileLayer('https://api.vworld.kr/req/wmts/1.0.0/FEE4B3E5-CBD8-387E-83C0-5DD7FE8FA8F2/Satellite/{z}/{y}/{x}.jpeg', {
+      maxZoom: 19,
+      attribution: 'VWorld'
+    }).addTo(map);
+
+    // 상단바의 타이틀을 main.html의 title과 동일하게 설정
+    document.getElementById('navbar-title').textContent = document.title;
+
+    // 상단바를 클릭했을 때 main.html 기본 홈으로 이동하는 함수
+    function goToMainPage() {
+      window.location.href = "main.html";
+    }
+
+    // 특정 시설을 클릭했을 때 해당 시설 정보를 지도에 표시하는 함수
+    function showFacility(name) {
+      var facility = facilities.find(f => f.name === name);
+      if (facility) {
+        map.setView([facility.lat, facility.lng], 10);
+        L.marker([facility.lat, facility.lng]).addTo(map)
+          .bindPopup(`<b>${facility.name}</b><br>위도: ${facility.lat}<br>경도: ${facility.lng}`).openPopup();
+      }
+    }
+
+    // 시설 데이터를 기반으로 마커를 추가
+    facilities.forEach(facility => {
+      L.marker([facility.lat, facility.lng]).addTo(map)
+        .bindPopup(`<b>${facility.name}</b><br>위도: ${facility.lat}<br>경도: ${facility.lng}`);
+    });
+  </script>
+</body>
+
+</html>

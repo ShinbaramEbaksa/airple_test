@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>실시간 저수지 모니터링 시스템</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    #loginForm h2 {
+      /* 헤더 크기 */
+      font-size: 21px; /* 글꼴 크기를 24px로 변경 */
+      margin-bottom: 45px; /* 아래쪽 여백을 추가하여 텍스트를 아래쪽으로 밀어줌 */
+      text-align: center;
+    }
+    #loginForm {
+      /* 로그인창 크기 */
+      background: white;
+      padding: 60px; /* padding을 20px에서 40px로 증가 */
+      border-radius: 10px; /* border-radius를 5px에서 10px로 증가 */
+      box-shadow: 0 0 20px rgba(0,0,0,0.1); /* 그림자 크기 증가 */
+      width: 300px; /* 너비를 300px로 설정 */
+    }
+    #loginForm input {
+      display: block;
+      margin: 10px 0;
+      padding: 15px; /* padding을 10px에서 15px로 증가 */
+      width: calc(100% - 30px); /* padding이 증가했으므로 전체 너비에서 padding 크기만큼 뺌 */
+    }
+    #loginForm button {
+      display: block; /* 버튼을 블록 요소로 설정하여 전체 너비 차지 */
+      padding: 15px; /* padding을 10px에서 15px로 증가 */
+      width: 102%; /* 전체 너비를 차지하도록 설정 */
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px; /* 버튼과 입력 필드 사이에 간격 추가 */
+    }
+    #loginForm button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <form id="loginForm">
+    <h2>실시간 저수지 모니터링 시스템</h2>
+
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">로그인</button>
+  </form>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = '/main.html';
+        } else {
+          alert('Invalid credentials');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
