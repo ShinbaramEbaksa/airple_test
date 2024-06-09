@@ -12,13 +12,11 @@
       height: 100%;
       margin: 0;
       overflow: hidden;
-      /* 페이지 전체 스크롤 방지 */
     }
 
     .container {
       display: flex;
       height: 100%;
-      /* 브라우저 창 전체 높이를 채우도록 수정 */
     }
 
     .navbar {
@@ -29,14 +27,10 @@
       text-align: center;
       cursor: pointer;
       width: 100%;
-      /* 너비를 고정값으로 설정 */
       z-index: 1000;
       position: fixed;
-      /* 고정 위치 */
-      top: 0px;
-      /* 상단 맨 위로 고정 */
+      top: 0;
       left: 0;
-      /* 왼쪽으로 정렬 */
     }
 
     .main-menu {
@@ -46,8 +40,7 @@
       padding: 10px;
       text-align: center;
       cursor: pointer;
-      width: 100px;
-      /* 너비를 고정값으로 설정 */
+      width: 80px;
       z-index: 1000;
       display: flex;
       flex-direction: column;
@@ -55,45 +48,36 @@
       margin-top: calc(41px);
     }
 
-    .main-menu span {
+    .main-menu div {
       margin-bottom: 30px;
     }
 
-    #map {
+    #content {
       flex: 1;
-      /* 맵이 남은 공간을 모두 차지하도록 설정 */
       margin-top: calc(41px);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #map {
+      width: 70%;
     }
 
     .sidebar {
-      color: black;
       width: 30%;
       background-color: #d1d1d1;
       padding: 40px;
       z-index: 900;
-      /* 기존보다 작은 값으로 변경 */
-      margin-top: calc(41px);
-
     }
 
     .sidebar div {
       margin-bottom: 30px;
     }
 
-    .main-menu div {
-      margin-bottom: 30px;
-    }
-
-
-    .menu {
+    .welcome-message {
+      margin-top: auto;
       margin-bottom: 20px;
       color: #ffffff;
-    }
-
-    .menu span {
-      display: block;
-      padding: 10px;
-      cursor: pointer;
     }
   </style>
 </head>
@@ -101,51 +85,61 @@
 <body>
   <div class="container">
     <!-- 상단바 -->
-    <div class="navbar" onclick="goToMainPage()">
+    <div class="navbar">
       <span id="navbar-title">나의 시설 지도</span>
     </div>
 
     <!-- 메인 메뉴 바 -->
     <div class="main-menu">
-      <div class="menu1" onclick="goToMenu1()">
+      <div class="menu1" onclick="showContent('menu1')">
         <span>메뉴1</span>
       </div>
-      <div class="menu2" onclick="goToMenu2()">
+      <div class="menu2" onclick="showContent('menu2')">
         <span>메뉴2</span>
       </div>
-      <div class="menu3" onclick="goToMenu3()">
+      <div class="menu3" onclick="showContent('menu3')">
         <span>메뉴3</span>
       </div>
-      <div class="setting" onclick="goToSetting()">
+      <div class="menu4" onclick="showContent('menu4')">
+        <span>메뉴4</span>
+      </div>
+      <div class="setting" onclick="showContent('setting')">
         <span>설정</span>
       </div>
+      <div class="welcome-message" id="welcome-message"></div>
     </div>
 
-    <!-- 맵 -->
-    <div id="map"></div>
+    <!-- 콘텐츠 영역 -->
+    <div id="content">
+      <!-- 맵 -->
+      <div id="map"></div>
 
-    <!-- 사이드바 -->
-    <div class="sidebar" id="sidebar">
-      <div>●지점이름 - 웅곡</div>
-      <div>●관리번호 - 1001</div>
-      <div>●홍수/만수/사수위 - 17/13/6.52m</div>
-      <div>●소재지 - 경상남도 거창군 거창읍 장팔리 1023</div>
-      <div>●관할지사 - 거창군 건설과</div>
-      <div>●통신상태 - 2023-12-09 17:19:00</div>
-      <div>●모니터링 주기 - 5분</div>
-      <div>●계측 수위 (EL.m) - 12.99m</div>
-      <div>●계측값(Kgf/㎠) - 0.66</div>
-      <div>●저수율 - 99.8(%)</div>
-      <div>●온도 - 14.4℃</div>
-      <div>●시스템 전압 - 11.78V</div>
-      <div>●수문개방(목표값) - 부분개폐</div>
-      <div>●저수량(㎥) - 12979938.3</div>
+      <!-- 사이드바 -->
+      <div class="sidebar" id="sidebar">
+        <div>●지점이름 - 웅곡</div>
+        <div>●관리번호 - 1001</div>
+        <div>●홍수/만수/사수위 - 17/13/6.52m</div>
+        <div>●소재지 - 경상남도 거창군 거창읍 장팔리 1023</div>
+        <div>●관할지사 - 거창군 건설과</div>
+        <div>●통신상태 - 2023-12-09 17:19:00</div>
+        <div>●모니터링 주기 - 5분</div>
+        <div>●계측 수위 (EL.m) - 12.99m</div>
+        <div>●계측값(Kgf/㎠) - 0.66</div>
+        <div>●저수율 - 99.8(%)</div>
+        <div>●온도 - 14.4℃</div>
+        <div>●시스템 전압 - 11.78V</div>
+        <div>●수문개방(목표값) - 부분개폐</div>
+        <div>●저수량(㎥) - 12979938.3</div>
+      </div>
     </div>
   </div>
 
   <!-- Leaflet 및 JavaScript 코드 -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
+    // 가상의 사용자 로그인 ID
+    var username = "airple"; // 실제로는 서버나 로그인 시스템에서 가져와야 합니다.
+
     // 시설 데이터
     var facilities = [
       { name: "에어플", lat: 37.1989403, lng: 127.0889836 },
@@ -166,24 +160,8 @@
     // 상단바의 타이틀을 main.html의 title과 동일하게 설정
     document.getElementById('navbar-title').textContent = document.title;
 
-    // 상단바를 클릭했을 때 main.html 기본 홈으로 이동하는 함수
-    function goToMainPage() {
-      window.location.href = "main.html";
-    }
-    function goToMenu1() {
-      window.location.href = "menu1.html";
-    }
-    function goToMenu2() {
-      window.location.href = "menu2.html";
-    }
-    function goToMenu3() {
-      window.location.href = "menu3.html";
-    }
-    function goToSetting() {
-      window.location.href = "setting.html";
-    }
-
-
+    // 환영 메시지 설정
+    document.getElementById('welcome-message').textContent = `${username}님 환영합니다`;
 
     // 특정 시설을 클릭했을 때 해당 시설 정보를 지도에 표시하는 함수
     function showFacility(name) {
@@ -200,6 +178,31 @@
       L.marker([facility.lat, facility.lng]).addTo(map)
         .bindPopup(`<b>${facility.name}</b><br>위도: ${facility.lat}<br>경도: ${facility.lng}`);
     });
+
+    // 메뉴 클릭 시 콘텐츠 변경 함수
+    function showContent(menu) {
+      if (menu === 'menu1') {
+        document.getElementById('sidebar').innerHTML = `
+          <div>메뉴1 콘텐츠</div>
+        `;
+      } else if (menu === 'menu2') {
+        document.getElementById('sidebar').innerHTML = `
+          <div>메뉴2 콘텐츠</div>
+        `;
+      } else if (menu === 'menu3') {
+        document.getElementById('sidebar').innerHTML = `
+          <div>메뉴3 콘텐츠</div>
+        `;
+      } else if (menu === 'menu4') {
+        document.getElementById('sidebar').innerHTML = `
+          <div>메뉴4 콘텐츠</div>
+        `;
+      } else if (menu === 'setting') {
+        document.getElementById('sidebar').innerHTML = `
+          <div>설정 콘텐츠</div>
+        `;
+      }
+    }
   </script>
 </body>
 

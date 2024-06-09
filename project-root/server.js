@@ -45,6 +45,11 @@ function isAuthenticated(req, res, next) {
   }
 }
 
+// 사용자 아이디를 반환하는 엔드포인트
+app.get('/api/user', isAuthenticated, (req, res) => {
+  res.json({ username: req.session.user });
+});
+
 // 지도 페이지 접근 시 세션 확인
 app.get('/main', isAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'main.html'));
