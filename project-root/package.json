@@ -5,7 +5,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "mkdir build && xcopy login.html build\\index.html /Y",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
