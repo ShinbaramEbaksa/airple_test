@@ -1,5 +1,5 @@
 {
-  "name": "airple_reservoir",
+  "name": "project-root",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -242,7 +242,6 @@
     "resolve-cwd": "^3.0.0",
     "resolve-from": "^5.0.0",
     "resolve.exports": "^2.0.2",
-    "rimraf": "^3.0.2",
     "safe-buffer": "^5.2.1",
     "safer-buffer": "^2.1.2",
     "semver": "^7.6.2",
@@ -262,9 +261,9 @@
     "sprintf-js": "^1.0.3",
     "stack-utils": "^2.0.6",
     "statuses": "^2.0.1",
+    "string_decoder": "^1.3.0",
     "string-length": "^4.0.2",
     "string-width": "^4.2.3",
-    "string_decoder": "^1.3.0",
     "strip-ansi": "^6.0.1",
     "strip-bom": "^4.0.0",
     "strip-final-newline": "^2.0.0",
@@ -306,19 +305,15 @@
     "yargs-parser": "^21.1.1",
     "yocto-queue": "^0.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "rimraf": "^5.0.7"
+  },
   "scripts": {
-    "test": "testtest",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "deploy": "gh-pages -d project-root/public"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ShinbaramEbaksa/airple_test/tree/main/project-root"
-  },
+  "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ShinbaramEbaksa/airple_test/issues"
-  },
-  "homepage": "https://github.com/ShinbaramEbaksa/airple_test#readme"
+  "license": "ISC"
 }
