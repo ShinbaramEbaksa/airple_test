@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json'); // JSON 응답 헤더 설정
 
-$servername = "ec2-43-203-41-139.ap-northeast-2.compute.amazonaws.com"; // AWS RDS 엔드포인트
+$servername = "43.203.41.139"; // AWS RDS 엔드포인트
 $username = "root"; // 데이터베이스 사용자 이름
 $password = "Airple123@@@!!"; // 데이터베이스 비밀번호
 $dbname = "saemtleDb"; // 데이터베이스 이름
