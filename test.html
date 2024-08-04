@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MySQL 연동 test</title>
+    <script>
+        // 페이지 로드 시 데이터 가져오기
+        window.onload = function() {
+            // 데이터 요청
+            fetch('fetch_data.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('서버 응답 오류: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 데이터 표시
+                    const table = document.getElementById('dataTable');
+                    if (data.message) {
+                        // 결과가 없는 경우
+                        document.getElementById('status').textContent = data.message;
+                    } else {
+                        // 데이터가 있는 경우
+                        data.forEach(row => {
+                            const tr = document.createElement('tr');
+                            Object.values(row).forEach(value => {
+                                const td = document.createElement('td');
+                                td.textContent = value;
+                                tr.appendChild(td);
+                            });
+                            table.appendChild(tr);
+                        });
+                        document.getElementById('status').textContent = '데이터 로드 성공';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('status').textContent = '데이터 로드 실패: ' + error.message;
+                });
+        };
+    </script>
+</head>
+<body>
+    <h1>MySQL 데이터베이스의 데이터</h1>
+    <p id="status">데이터 로딩 중...</p> <!-- 상태 메시지를 표시할 부분 -->
+    <table id="dataTable" border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Manage ID</th>
+            <th>Address</th>
+            <th>X</th>
+            <th>Y</th>
+            <th>Level Min</th>
+            <th>Level Full</th>
+            <th>Level Over</th>
+            <th>Incharge</th>
+            <th>MAC ID</th>
+            <th>Phone</th>
+            <th>Telecom</th>
+            <th>SW Version</th>
+            <th>Reg Date</th>
+            <th>Comm Status</th>
+            <th>Comm Interval</th>
+            <th>Comm Last</th>
+            <th>Wait Time</th>
+            <th>Sense Add</th>
+            <th>Level Add</th>
+            <th>RSV Type</th>
+            <th>PRange</th>
+            <th>Act1 Open</th>
+            <th>Keep Time</th>
+            <th>Height</th>
+            <th>Eff Quan</th>
+        </tr>
+    </table>
+</body>
+</html>
