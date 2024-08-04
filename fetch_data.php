@@ -1,4 +1,6 @@
 <?php
+
+header('Content-Type: application/json'); // JSON 응답 헤더 설정
 header("Access-Control-Allow-Origin: *"); // 모든 도메인에서 접근 허용
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type");
